@@ -192,6 +192,7 @@ ______________________________________
 
 python venv
 https://docs.python.org/3/library/venv.html
+https://docs.python.org/pt-br/3/library/venv.html
 
 Crie uma pasta para inserir o seu ambiente virtual
 
@@ -220,6 +221,15 @@ Atualizar o pip
 
 
 ______________________________________
+DEPENDENCIAS DO PROJETO
+______________________________________
+
+ - Django
+
+
+
+
+______________________________________
 CONFIGURAÇÕES PROJETO
 ______________________________________
 
@@ -233,6 +243,86 @@ https://docs.djangoproject.com/en/3.0/topics/i18n/timezones/
 
     LANGUAGE_CODE
     TIME_ZONE
+
+
+
+
+______________________________________
+CRIAÇÃO DA VIEW
+______________________________________
+
+Create folder 'templates' into receitas app folder
+create a file 'index.html'
+
+INFORMAR PARA A VIEW RENDERIZAR A PÁGINA
+
+Na função index que retorna um elemento html,
+altere a seguinte linha:
+
+    return HttpResponse('<h1>Receitas</h1>')
+
+para:
+
+    return render(request, 'index.hltml')
+
+Depois remova o import http, pois não estamos
+mais utilizando.
+
+    'from django.http import HttpResponse'
+
+
+
+
+______________________________________
+GERENCIANDO ARQUIVOS ESTÁTICOS
+______________________________________
+
+https://docs.djangoproject.com/pt-br/2.2/howto/static-files/
+
+Abra o arquivo 'settings.py' do projeto.
+Dentro da propriedade 'TEMPLATES', insira a caminho para a
+raiz da aplicação
+
+    'DIRS': [os.path.join(BASE_DIR, 'receitas/templates')],
+
+
+Expecificar para o Django onde encontar os arquivos estaticos.
+Crie o campo:
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+Dizer onde encontramos os arquivos estáticos:
+
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'alura_receita/static')
+    ]
+
+
+ADICIONANDO OS ARQUIVOS ESTÁTICOS NO PROJETO
+Crie uma pasta 'static' na estrutura do projeto.
+Copie e cole os arquivos estáticos baixados para dentro da pasta.
+
+    /css
+    /fonts
+    /img
+    /js
+    /scss
+    /site.css
+
+Agora, vamos imformar para o Django que temos arquivos estáticos
+no diretório.
+
+    $ python manage.py help
+    [staticfiles]
+
+Faz uma cópia dos arquivos para o Django poder manipular os meus arquivos
+
+    # python manage.py collectstatic
+
+Agora copie e cole os seguintes arquivos para a pasta '/receitas/templates':
+
+    index.html
+    receita.html
 
 
 
