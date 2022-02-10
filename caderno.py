@@ -259,7 +259,7 @@ create a file 'index.html'
 
 INFORMAR PARA A VIEW RENDERIZAR A PÁGINA
 
-Na função index que retorna um elemento html,
+No arquivo views.py ,a função index que retorna um elemento html,
 altere a seguinte linha:
 
     return HttpResponse('<h1>Receitas</h1>')
@@ -352,6 +352,12 @@ Depois insira a seguinte 'tag' padrão em todos os caminhos da página:
 
     {% static 'caminho' %}
 
+Para caminhos .html, utilize o seguinte padrãa, retirnado o
+.html do link:
+
+    href="{% url 'index' %}"
+
+
 Exemplo:
 
     <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
@@ -363,6 +369,81 @@ entre outros formatos.
 
 Caso queira saber mais sobre Templates:
     https://docs.djangoproject.com/en/2.2/topics/templates/
+
+
+
+
+______________________________________
+ESTENDENDO HTML
+______________________________________
+
+Crie um folder dentro de templates, chamado 'base.html'
+Copie e cole as tags para construção do html base.
+Neste projeto terá um arquivo nomeado como 'exemplo_base.html',
+como arquivo para futuras consultas
+
+Como indicar a inserção de um trecho (blocos) de código
+na minha página html?
+
+Através de código Python!
+Insira no arquivo base.html onde você queira inserir o trecho:
+
+    {% block content %} {% endblock %}
+
+Neste caso foi inserido antes da abertura da tag <script>
+
+        {% block content %} {% endblock %}
+
+    <!-- ##### All Javascript Files ##### -->
+        <!-- jQuery-2.2.4 js -->
+        <script src="{% static 'js/jquery/jquery-2.2.4.min.js"></script>
+
+Agora informe no arquivo que será importado
+as seguintes tag:
+
+    {% extends 'base.html' %}
+    {% load static %}
+
+Lembre-se, no arquivo que será importado, não deve existir o mesmo trecho de código
+do arquivo 'base.html', até porque esse trecho será IMPORTADO. ;)
+
+Por fim, informe o início e fim do bloco que será importado,
+inserindo todo o trecho html dentro das tags:
+
+    {% block content %}
+        ...
+        ...
+        ...
+    {% endblock %}
+
+
+
+
+______________________________________
+ESTENDENDO HTML
+______________________________________
+
+partials são pequenos trechos de código html
+que podem ser compartilhados com outras páginas.
+
+Crie uma pasta dentro de template: 'partials'.
+Crie dentro da pasta uma página html: 'footer.html'
+Crie dentro da pasta uma página html: 'menu.html'
+
+Recorte e cole todo o código HTML referente ao menu
+e cole dentro da página 'menu.html'.
+
+Insira um trecho de código Python
+no arquivo 'index.html':
+
+    {% include 'partials/menu.html' %}
+
+Dentro da página 'menu.html', insira o
+carregamento de conteúdo estático:
+
+    {% load static %}
+
+Faça o mesmo para o footer!!
 
 
 
