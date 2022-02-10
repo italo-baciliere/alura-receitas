@@ -18,6 +18,9 @@ Modelo e banco de dados
 Admin, parâmetros e receitas
     Utilizando o Django admin, vamos exibir as receitas do banco
 
+Página do GitHub para mais informações sobre o projeto:
+    https://github.com/alura-cursos/alura_receitas_django
+
 
 
 
@@ -285,12 +288,23 @@ raiz da aplicação
 
     'DIRS': [os.path.join(BASE_DIR, 'receitas/templates')],
 
+Usamos esta configuração para referência a arquivos estáticos
+localizados no 'STATIC_ROOT'
+
+    STATIC_URL = 'static/'
 
 Expecificar para o Django onde encontar os arquivos estaticos.
+Usamos esta configuração para indicar o caminho absoluto, onde o
+'collectstatic' coletará os arquivos estáticos.
 Crie o campo:
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+Essa configuração define os locais adicionais que o aplicativo
+'staticfiles' percorrerá se o localizador 'FileSystemFinder'
+estiver ativado, por exemplo. Se você usar o comando de
+gerenciamento 'collectstatic' ou 'findstatic' ou usar
+a exibição de arquivo estático.
 Dizer onde encontramos os arquivos estáticos:
 
     STATICFILES_DIRS = [
@@ -299,6 +313,7 @@ Dizer onde encontramos os arquivos estáticos:
 
 
 ADICIONANDO OS ARQUIVOS ESTÁTICOS NO PROJETO
+
 Crie uma pasta 'static' na estrutura do projeto.
 Copie e cole os arquivos estáticos baixados para dentro da pasta.
 
@@ -323,6 +338,31 @@ Agora copie e cole os seguintes arquivos para a pasta '/receitas/templates':
 
     index.html
     receita.html
+
+Após realizar todas as configurações em 'settings.py',
+indicando que trabalharemos com arquivos estáticos,
+é necessário para carregar uma imagem ou um arquivo css na
+nossa aplicação usar a 'template tag' e a 'tag' 'static'
+para construir um URL para o caminho relativo.
+Com isso, insira no topo da página a seguinte 'template tag':
+
+    {% load static %}
+
+Depois insira a seguinte 'tag' padrão em todos os caminhos da página:
+
+    {% static 'caminho' %}
+
+Exemplo:
+
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+Os templates do Django definem o layout e a formatação
+final enviados aos usuários finais após o término do processamento
+de uma solicitação, podendo ser escrito no formato html ou csv,
+entre outros formatos.
+
+Caso queira saber mais sobre Templates:
+    https://docs.djangoproject.com/en/2.2/topics/templates/
 
 
 
