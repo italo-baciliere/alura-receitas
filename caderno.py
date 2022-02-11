@@ -449,6 +449,13 @@ Faça o mesmo para o footer!!
 
 
 ______________________________________
+NOMES DE RECEITAS DINÂMICAS
+______________________________________
+
+
+
+
+______________________________________
 ESTUDAR - DETALHAR
 ______________________________________
 
@@ -458,7 +465,3 @@ Instrospecção
 Filosofia do Django segundo a documentação oficial
     - https://docs.djangoproject.com/pt-br/2.2/misc/design-philosophies/
 '''
-
-
-
-
