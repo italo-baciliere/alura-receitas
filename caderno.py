@@ -452,7 +452,150 @@ ______________________________________
 NOMES DE RECEITAS DINÂMICAS
 ______________________________________
 
+Em Django, existe uma maneira que consiste em passar uma
+informação ao template na hora de renderizar a página principal.
 
+PASSANDO O DADOS PARA A VIEW
+Para isso, deletamos os blocos com as receitas para deixar apenas a primeira "Sopa de legumes".
+
+Acesse 'views.py' para ver a função render() que recebe a requisição e a página.
+
+crie a variavél contendo os dados que deseja passar, exemplo:
+
+    receitas = {
+        1:'Lasanha',
+        2:'Sopa de legumes',
+        3:'Sorvete'
+    }
+
+    dados = {
+        'nome_das_receitas': receitas
+    }
+
+Nos parametros da função 'render' do retorno da função 'index', insira a variavel 'dados' como parametro:
+
+    return render(request,'index.html',dados)
+
+
+EXIBINDO OS DADOS NO HTML
+Para que seja gerado um novo card a cada item que incluirmos no dicinário de forma dinâmica,
+vamos processar um código Python para sabermos quantas receitas
+temos ao escrever 'for' para cada chave em valor 'in nome_das_receitas'.
+
+Onde será renderizado os valores 'dados' devemos utilizar {{}},
+e passar o nome do dicionário 'nome_da_receita'
+Por a tag que representa o nome de cada receita.
+
+exemplo:
+
+    {% for chave, nome_da_receita in nome_das_receitas.items %}
+    <!-- Single Best Receipe Area -->
+    <div class="col-12 col-sm-6 col-lg-4">
+        <div class="single-best-receipe-area mb-30">
+            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+            <div class="receipe-content">
+                <a href="{% url 'receita' %}">
+                    <h5>{{ nome_da_receita }}</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor%}
+
+
+
+
+______________________________________
+POSTGRESQL
+______________________________________
+
+Utilizaremos o banco de dados PostgreSQL 10.20, por ser a última versão a dar suporte a todas as versões.
+
+
+Após instalar, abrimos o PostgreSQL buscando por 'pgAdmin 4.app'.
+em nosso caso, que inicia o servidor onde fica toda a nossa base de dados.
+Insira a senha informada na instalação.
+
+Vamos criar um novo servidor
+
+    > create server
+
+    Name:dbserver
+    hostname: localhost
+    superuser Password:
+        post@@@@4c!
+    Server port number:
+        5432
+    Locale
+        [Default locale]
+
+
+De volta à nossa aplicação Django, alteramos toda a configuração indo no arquivo 'setting.py'
+ em nosso projeto de "alurareceita" para acessar a parte de DATABASES.
+ Nesta, vemos que o database default é o sqlite3, e devemos alterar para o banco de dados que queremos utilizar;
+ mas antes, é necessária a instalação do módulo PostgreSQL para que a aplicação consiga se conectar.
+
+O Psycopg é o adaptador de banco de dados PostgreSQL mais popular para a linguagem de programação Python.
+Ele foi projetado para aplicativos altamente multithread que criam e destroem muitos cursores e produzem
+um grande número de INSERT ou UPDATE s simultâneos.
+Para instalar este adaptador, dentro de sua venv, execute o seguinte comando:
+
+    $ pip install psycopg2
+
+obter os arquivos binários
+
+    $ pip install psycopg2-binary
+
+
+CRIAR UM BANCO DE DADOS
+No pgAdmin, crie um 'Database'
+
+    Database: alura_receita
+
+Vamos fazer as alterações no arquivo 'settings.py' do projeto.
+Para saber os dados de conexão com o banco de dados,
+botão direito no nome do servidor > Properties...
+
+ANTERIOR:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+POSTERIOR:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'dbserver',
+            'USERNAME': 'postgres',
+            'PASSWORD': 'post@@@@4c!',
+            'HOST': 'localhost'
+        }
+    }
+
+
+CRIANDO UM MODELO DE RECEITA
+
+https://docs.djangoproject.com/en/4.0/topics/db/models/
+
+No arquivo 'models.py' de uma aplicação,
+crie um modelo de receita.
+
+Antes de executar as migrações, eu tive que ir no pdAdmin
+e criar o banco de dados 'alura_receita'.
+
+Execute o comando para informar a existencia de migrações
+
+    (venv) python manage.py makemigrations
+
+Confira na pasta migrations as suas alterações.
+
+Execute as migrações pendentes
+
+    (venv) python manage.py migrate
+
+https://docs.djangoproject.com/en/1.10/topics/migrations/
 
 
 ______________________________________
