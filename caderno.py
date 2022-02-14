@@ -584,6 +584,7 @@ crie um modelo de receita.
 
 Antes de executar as migrações, eu tive que ir no pdAdmin
 e criar o banco de dados 'alura_receita'.
+https://stackoverflow.com/questions/40669315/django-trying-to-use-wrong-database-user
 
 Execute o comando para informar a existencia de migrações
 
@@ -596,6 +597,47 @@ Execute as migrações pendentes
     (venv) python manage.py migrate
 
 https://docs.djangoproject.com/en/1.10/topics/migrations/
+
+
+
+
+______________________________________
+DJANGO ADMIN
+______________________________________
+
+Abra o arquivo 'admin.py'.
+Realize o import da classe 'receita'
+
+    from .models import Receita
+
+Registrar o modelo de receita
+
+    admin.site.register(Receita)
+
+Observe que no arquivo 'urls.py' do seu projeto,
+você terá a seguinte rota:
+
+    path('admin/', admin.site.urls),
+
+Teste esta rota no seu navegador:
+
+    http://localhost:8000/admin/
+
+Para criar um usuário admin,
+
+    (venv) python manage.py createsuperuser
+
+    Informe o nome do usuário!
+        - italo
+    Informe o endereço de email!
+        - italo.proconcept@gmail.com
+    Informe um usuário com uma senha forte!
+        - changeme
+
+Volta na tela do admin e tente fazer login com o usuário criado!
+Você verá o seu modelo de receitas criado.
+
+
 
 
 ______________________________________
