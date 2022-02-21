@@ -1,14 +1,10 @@
 from django.shortcuts import render
+from .models import Receita
 
 def index(request):
 
     # dicionário
-    receitas = {
-        1:'Lasanha',
-        2:'Sopa de legumes',
-        3:'Sorvete',
-        4:'Barra de cereal'
-    }
+    receitas = Receita.objects.all()
 
     dados = {
         'nome_das_receitas': receitas
@@ -16,6 +12,6 @@ def index(request):
 
     return render(request,'index.html',dados)
 
-def receita(request):
+def receita(request, requesta_id):
     return render(request, 'receita.html')
 

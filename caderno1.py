@@ -649,4 +649,9 @@ Instrospecção
 
 Filosofia do Django segundo a documentação oficial
     - https://docs.djangoproject.com/pt-br/2.2/misc/design-philosophies/
+
+Django: QuerySets e ORM
+    https://www.alura.com.br/artigos/django-query-sets-e-orm
+Django Rest Framework: Versionamento
+    https://www.alura.com.br/artigos/django-rest-framework-versionamento
 '''
